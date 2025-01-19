@@ -1,0 +1,139 @@
+/* Main Suggested Friends Container */
+.suggested-friends-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 16px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-sizing: border-box; /* Ensure consistent sizing */
+}
+
+/* Suggested Friends Title */
+.suggested-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1a202c;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 8px;
+}
+
+/* Friends List Wrapper */
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 400px; /* Limit the height */
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Individual Friend Card */
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9fafb;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  box-sizing: border-box; /* Ensure consistent sizing */
+}
+
+.friend-item:hover {
+  background: #edf2f7;
+}
+
+/* Avatar Styling */
+.friend-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+/* Friend Info */
+.friend-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.friend-job {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0;
+}
+
+/* Add Friend Button */
+.add-friend-button {
+  background-color: #3182ce;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-friend-button:hover {
+  background-color: #2b6cb0;
+  transform: scale(1.1);
+}
+
+/* Limit to First 5 Friends */
+.friends-list .friend-item:nth-child(n+5) {
+  display: none;
+}
+
+/* Footer Container */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 30px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.copyright {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 6px;
+}
+
+.footer-link {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
