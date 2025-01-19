@@ -28,7 +28,6 @@ export default function Post({ post }) {
   return (
     <div className="post">
       <div className="postWrapper">
-        {/* Top Section */}
         <div className="postTop">
           <div className="postTopLeft">
             <img
@@ -58,7 +57,6 @@ export default function Post({ post }) {
 
         <div className="postBottom">
           <div className="postBottomLeft">
-            {/* Like Action */}
             <div className="postAction" onClick={likeHandler}>
               {isLiked ? (
                 <ThumbUpAlt className="actionIcon" style={{ color: "red" }} />
