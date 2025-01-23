@@ -1,11 +1,13 @@
 import './profile.css';
 
 const ProfileCard = () => {
+
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
   return (
     <div className="profile-card">
       <div className="profile-header">
         <div className="profile-image-container">
-          <img src="assets/person/10.jpg" alt="Profile of" className="profile-image" />
+          <img src={`${PF}person/10.jpg`}  alt="Profile of" className="profile-image" />
         </div>
         <div className="profile-info">
           <h2 className="profile-name">Ayush Sharma<span className="profile-username"> / @ayush-018</span></h2>

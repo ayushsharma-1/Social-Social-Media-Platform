@@ -87,3 +87,25 @@
 .Person {
   font-size: 20px;
 }
+
+/* Ensure Logo is treated as part of the clickable link */
+.Logo, .LogoText a {
+  text-decoration: none;  /* Remove the underline from the link */
+  color: inherit;         /* Ensure both image and text inherit color from parent */
+}
+
+.Logo {
+  cursor: pointer; /* Make the logo image clickable */
+}
+
+.LogoText a {
+  font-size: 1.5rem; /* Adjust size of text (Social) */
+  font-weight: 600;   /* Keep it bold, similar to previous styling */
+  margin-left: 8px;   /* Add a little space between logo and text */
+  cursor: pointer;   /* Make the text also clickable */
+}
+
+.LogoText a:hover {
+  color: inherit; /* Remove any hover effect on the link */
+}
+

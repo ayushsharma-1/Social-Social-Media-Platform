@@ -1,9 +1,8 @@
-import React from "react";
 import { Users } from "../../dummyData";
 import AddIcon from "@mui/icons-material/Add";
 import "./rightbar.css"
 
-const SuggestedFriends = () => {
+const SuggestedFriends = () => {  
   return (
     <div className="rightbarContainer">
     <div className="suggested-friends-container">
