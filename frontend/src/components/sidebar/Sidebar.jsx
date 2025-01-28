@@ -1,30 +1,44 @@
 import "./sidebar.css";
 import { Home, Person, Chat, Notifications } from "@mui/icons-material";
-import { Users } from "../../dummyData";
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Sidebar() {
-  const user = Users.find((u) => u.id === 10);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [user, setUser] = useState(null); // State to store user data
+
+  useEffect(() => {
+    // Fetch user data from the API based on user ID
+    const fetchUser = async () => {
+      try {
+        const userId = 10; // Example static user ID (can be dynamic)
+        const res = await axios.get(`/users/${userId}`); // Fetch user details by ID
+        setUser(res.data);
+      } catch (err) {
+        console.error("Failed to fetch user data:", err);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <div className="sidebar">
+      {/* Static Cover Image */}
       <div className="sidebar-cover">
-        <img
-          src={`${PF}ad.png`}
-          alt="Cover"
-          className="cover-image"
-        />
+        <img src={`${PF}ad.png`} alt="Cover" className="cover-image" />
       </div>
 
+      {/* User Profile Section */}
       {user ? (
         <div className="sidebar-profile">
           <img
-            src={user.profilePicture}
+            src={user.profilePicture ? PF + user.profilePicture : `${PF}person/noAvatar.png`}
             alt={user.username}
             className="profile-avatar"
           />
           <h3 className="profile-name">{user.username}</h3>
-          <p className="profile-job">Software Engineer</p>
+          <p className="profile-job">{user.job || "Unknown Profession"}</p>
         </div>
       ) : (
         <div className="sidebar-profile">
@@ -33,22 +47,20 @@ export default function Sidebar() {
         </div>
       )}
 
+      {/* Sidebar Menu */}
       <div className="sidebar-menu">
         <ul className="menu-list">
           <li className="menu-item">
             <Home className="menu-icon" />
-           
-
-      <span className="menu-text">
-        <Link to="/Home">Home</Link>
-      </span>
-
+            <span className="menu-text">
+              <Link to="/Home">Home</Link>
+            </span>
           </li>
           <li className="menu-item">
             <Person className="menu-icon" />
             <span className="menu-text">
-        <Link to="/profile/:username">Profile</Link>
-      </span>
+              <Link to={`/profile/${user?.username || "unknown"}`}>Profile</Link>
+            </span>
           </li>
           <li className="menu-item">
             <Chat className="menu-icon" />

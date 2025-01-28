@@ -15,8 +15,12 @@ export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);  // Track the number of likes
   const [isLiked, setIsLiked] = useState(post.likes.includes(post.userId));  // Track if the current user has liked the post
   const [user, setUser] = useState(null); // To store user data
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext); // Get current user from AuthContext
 
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentUser._id));
+  }, [currentUser._id, post.likes]);
   // Fetch user data when post.userId changes
   useEffect(() => {
     const fetchUser = async () => {
@@ -59,16 +63,18 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            {user && (
-              <>
-                <img
-                  className="postProfileImg"
-                  src={user.profilePicture}
-                  alt={user.username}
-                />
+          <Link to={`/profile/${user.username}`}>
+              <img
+                className="postProfileImg"
+                src={
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "person/noAvatar.png"
+                }
+                alt=""
+              />
+            </Link>
                 <span className="postUsername">{user.username}</span>
-              </>
-            )}
             <span className="postDate">{format(post.date)}</span>
           </div>
           <div className="postTopRight">

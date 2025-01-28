@@ -6,29 +6,41 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Feed({ username }) {
-  const [posts, setPosts] = useState([]);
-  const { user } = useContext(AuthContext);
+  const [posts, setPosts] = useState([]); // State to store posts
+  const { user } = useContext(AuthContext); // Get user context
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = username
-        ? await axios.get("/posts/profile/" + username)
-        : await axios.get("posts/timeline/" + user._id);
-      setPosts(
-        res.data.sort((p1, p2) => {
-          return new Date(p2.createdAt) - new Date(p1.createdAt);
-        })
-      );
+      try {
+        const res = username
+          ? await axios.get(`/posts/profile/${username}`) // Fetch profile posts if username is provided
+          : await axios.get(`/posts/timeline/${user._id}`); // Fetch timeline posts
+          
+        // Sort posts by creation date (most recent first)
+        setPosts(
+          res.data.sort((p1, p2) => {
+            return new Date(p2.createdAt) - new Date(p1.createdAt);
+          })
+        );
+      } catch (err) {
+        console.error("Failed to fetch posts:", err);
+      }
     };
+
     fetchPosts();
-  }, [username, user._id]);
+  }, [username, user._id]); // Dependency on username and user ID
+
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
-        {Post.map((p) => (
-          <Post key={p.id} post={p} />
-        ))}
+        {/* Display Share component only if username matches the logged-in user or no username is provided */}
+        {(!username || username === user.username) && <Share />}
+        {/* Render posts */}
+        {posts.length > 0 ? (
+          posts.map((p) => <Post key={p._id} post={p} />)
+        ) : (
+          <p className="no-posts">No posts to show.</p> // Fallback for no posts
+        )}
       </div>
     </div>
   );

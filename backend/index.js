@@ -3,10 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const dotenv = require("dotenv");
+const multer = require("multer");
 const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
 const app = express();
+const router = express.Router();
+const path = require("path");
 
 // middleware
 app.use(helmet());
@@ -24,6 +28,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB Kilo"))
   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 app.get("/", (req, res) => {
     res.send(`
@@ -34,6 +39,26 @@ app.get("/", (req, res) => {
         </html>
     `);
 });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "public/images");
+    },
+    filename: (req, file, cb) => {
+      cb(null, req.body.name);
+    },
+  });
+  
+  const upload = multer({ storage: storage });
+  app.post("/api/upload", upload.single("file"), (req, res) => {
+    try {
+      return res.status(200).json("File uploded successfully");
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  
+
+  
 
 app.get("/portfolio", (req, res) => {
     res.redirect("https://ayushsharma.site");

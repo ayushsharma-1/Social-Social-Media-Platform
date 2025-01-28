@@ -22,12 +22,23 @@
   height: 40px; /* Adjust logo size */
   width: 40px;
   margin-right: 10px; /* Gap between logo and text */
+  cursor: pointer; /* Makes the logo clickable */
 }
 
 .LogoText {
   font-size: 20px;
   font-weight: bold;
   color: black;
+}
+
+.LogoText a {
+  text-decoration: none; /* Remove underline from the link */
+  color: inherit; /* Inherit the parent color */
+  cursor: pointer; /* Make the text clickable */
+}
+
+.LogoText a:hover {
+  color: black; /* Maintain consistent hover color */
 }
 
 .topbarCenter {
@@ -69,9 +80,36 @@
 .topbarRight {
   flex: 1;
   display: flex;
-  align-items: center; /* Centers logout icon and text vertically */
+  align-items: center; /* Centers content vertically */
   justify-content: flex-end; /* Aligns content to the right */
   padding-right: 20px;
+  gap: 15px; /* Adds spacing between profile and other options */
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center; /* Centers profile image vertically */
+  gap: 10px; /* Adds space between image and name */
+  cursor: pointer; /* Makes the profile area clickable */
+}
+
+.topbarProfileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover;
+  border: 2px solid #f5f5f5; /* Adds a subtle border */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+}
+
+.profileName {
+  font-size: 16px;
+  color: black;
+  font-weight: bold;
+}
+
+.profileName:hover {
+  color: #007bff; /* Change to blue on hover */
 }
 
 .Logout {
@@ -88,24 +126,4 @@
   font-size: 20px;
 }
 
-/* Ensure Logo is treated as part of the clickable link */
-.Logo, .LogoText a {
-  text-decoration: none;  /* Remove the underline from the link */
-  color: inherit;         /* Ensure both image and text inherit color from parent */
-}
-
-.Logo {
-  cursor: pointer; /* Make the logo image clickable */
-}
-
-.LogoText a {
-  font-size: 1.5rem; /* Adjust size of text (Social) */
-  font-weight: 600;   /* Keep it bold, similar to previous styling */
-  margin-left: 8px;   /* Add a little space between logo and text */
-  cursor: pointer;   /* Make the text also clickable */
-}
-
-.LogoText a:hover {
-  color: inherit; /* Remove any hover effect on the link */
-}
 

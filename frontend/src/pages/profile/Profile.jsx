@@ -14,8 +14,8 @@ export default function Profile() {
         <div className="profileRight">
           <ProfileTop/>
           <div className="profileRightBottom">
-            <Feed />
-            <Rightbar profile/>
+            <Feed username={username} />
+            <Rightbar user={user}/>
           </div>
         </div> 
       </div>
