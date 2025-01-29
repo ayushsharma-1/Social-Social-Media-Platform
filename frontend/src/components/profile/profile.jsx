@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import './profile.css';
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import "./profile.css";
 
-const ProfileCard = () => {
-  const [user, setUser] = useState(null); // State to hold user data
+const Profile = () => {
+  const { user: currentUser } = useContext(AuthContext); // Get the authenticated user
+  const [user, setUser] = useState(null);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
+      if (!currentUser || !currentUser._id) return; // Ensure user is available
+
       try {
-        const response = await fetch('/api/user'); // Replace with your actual API endpoint
+        const response = await fetch(`http://localhost:8800/api/users/${currentUser._id}`);
         const data = await response.json();
-        setUser(data); // Set the user data to state
+        setUser(data);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
     fetchUserData();
-  }, []);
+  }, [currentUser]); // Re-run when currentUser changes
 
-  // Display loading or error message if data is not fetched yet
   if (!user) {
     return <div className="profile-card">Loading user data...</div>;
   }
@@ -40,7 +42,7 @@ const ProfileCard = () => {
             {user.name}
             <span className="profile-username"> / @{user.username}</span>
           </h2>
-          <p className="profile-job">{user.jobTitle || 'No Job Title'}</p>
+          <p className="profile-job">{user.jobTitle || "No Job Title"}</p>
         </div>
 
         <div className="profile-stats">
@@ -67,4 +69,4 @@ const ProfileCard = () => {
   );
 };
 
-export default ProfileCard;
+export default Profile;

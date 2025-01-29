@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const cors = require("cors"); 
 const morgan = require("morgan");
-const dotenv = require("dotenv");
 const multer = require("multer");
 const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
@@ -23,6 +23,15 @@ app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 
 // database connection
+app.use(cors({
+  origin: "http://localhost:3000",  // Allow the React frontend to access the backend
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
+app.options("*", cors()); 
+
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected to MongoDB Kilo"))

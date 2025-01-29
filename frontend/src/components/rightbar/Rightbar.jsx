@@ -10,18 +10,19 @@ const SuggestedFriends = () => {
   const { user: currentUser } = useContext(AuthContext);
   const [addedFriends, setAddedFriends] = useState([]);
 
-  // Fetch suggested friends
   useEffect(() => {
     const fetchSuggestedFriends = async () => {
       try {
-        const res = await axios.get("/users/friends/" + user._id); // Replace with your API endpoint for suggested friends
+        if (!currentUser || !currentUser._id) return; // Ensure currentUser is available
+        const res = await axios.get("/users/friends/" + currentUser._id);
         setSuggestedFriends(res.data);
       } catch (err) {
         console.error("Error fetching suggested friends:", err);
       }
     };
     fetchSuggestedFriends();
-  }, []);
+  }, [currentUser]); // Add currentUser as a dependency
+  
 
   // Handle add/remove friend
   const handleFriendAction = async (friendId) => {
