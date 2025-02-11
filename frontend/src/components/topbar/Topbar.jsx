@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Topbar() {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER; // Public folder path
   const { user } = useContext(AuthContext); // Get the logged-in user context
   const navigate = useNavigate(); // React Router's navigation hook
 
@@ -17,7 +16,7 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <img src={`${PF}Logo.jpg`} alt="Logo of Social" className="Logo" />
+        <img src="/Logo.jpg" alt="Logo of Social" className="Logo" />
         <span className="LogoText">
           <Link to="/Home">Social</Link>
         </span>
@@ -35,11 +34,7 @@ export default function Topbar() {
         {user ? (
           <div className="profileContainer" onClick={handleProfileClick}>
             <img
-              src={
-                user.profilePicture
-                  ? `${PF}${user.profilePicture}`
-                  : `${PF}person/noAvatar.png`
-              }
+              src={user.profilePicture || "/person/noAvatar.png"} // Directly using the profile picture from user object
               alt="Profile"
               className="topbarProfileImg"
             />

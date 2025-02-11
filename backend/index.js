@@ -5,13 +5,22 @@ const helmet = require("helmet");
 const cors = require("cors"); 
 const morgan = require("morgan");
 const multer = require("multer");
-const userRoute = require("./routes/users")
-const authRoute = require("./routes/auth")
-const postRoute = require("./routes/posts")
+const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
+const postRoute = require("./routes/posts");
 const app = express();
 const router = express.Router();
 const path = require("path");
 
+// Cors Configuration
+app.use(cors({
+  origin: ["http://localhost:3000"],  // Only allow requests from your React frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}))
+
+app.options("*", cors()); 
 // middleware
 app.use(helmet());
 app.use(morgan("common"));
@@ -22,15 +31,9 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 
-// database connection
-app.use(cors({
-  origin: "http://localhost:3000",  // Allow the React frontend to access the backend
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
 
-app.options("*", cors()); 
+
+
 
 mongoose
   .connect(process.env.MONGODB_URL)

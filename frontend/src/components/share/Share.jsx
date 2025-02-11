@@ -1,36 +1,36 @@
 import "./share.css";
 import {PermMedia, Label,Room, EmojiEmotions} from "@mui/icons-material"
-import { useContext, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
+// import { useContext, useRef, useState } from "react";
+// import { AuthContext } from "../../context/AuthContext";
+// import axios from "axios";
 export default function Share() {
-  const { user } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const desc = useRef();
-  const [file, setFile] = useState(null);
+  // const { user } = useContext(AuthContext);
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const desc = useRef();
+  // const [file, setFile] = useState(null);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const newPost = {
-      userId: user._id,
-      desc: desc.current.value,
-    };
-    if (file) {
-      const data = new FormData();
-      const fileName = Date.now() + file.name;
-      data.append("name", fileName);
-      data.append("file", file);
-      newPost.img = fileName;
-      console.log(newPost);
-      try {
-        await axios.post("/upload", data);
-      } catch (err) {}
-    }
-    try {
-      await axios.post("/posts", newPost);
-      window.location.reload();
-    } catch (err) {}
-  };
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
+  //   const newPost = {
+  //     userId: user._id,
+  //     desc: desc.current.value,
+  //   };
+  //   if (file) {
+  //     const data = new FormData();
+  //     const fileName = Date.now() + file.name;
+  //     data.append("name", fileName);
+  //     data.append("file", file);
+  //     newPost.img = fileName;
+  //     console.log(newPost);
+  //     try {
+  //       await axios.post("/upload", data);
+  //     } catch (err) {}
+  //   }
+  //   try {
+  //     await axios.post("/posts", newPost);
+  //     window.location.reload();
+  //   } catch (err) {}
+  // };
 
   return (
     <div className="share">
@@ -38,7 +38,7 @@ export default function Share() {
         <div className="shareTop">
           <img className="shareProfileImg" src="/assets/person/10.jpg" alt="" />
           <input
-            placeholder="What's in your mind Safak?"
+            placeholder="What's in your mind?"
             className="shareInput"
           />
         </div>

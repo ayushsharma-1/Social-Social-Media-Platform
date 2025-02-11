@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+// Profile.js
+import "./profile.css";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import Topbar from "../../components/topbar/Topbar";
@@ -6,7 +8,6 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
 import ProfileTop from "../../components/profile/profile";
-import "./profile.css";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -15,6 +16,8 @@ export default function Profile() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
+        console.log(currentUser);
+        console.log("User ID: ", currentUser._id);
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/${currentUser._id}`);
         setUser(res.data);
       } catch (err) {
@@ -40,6 +43,9 @@ export default function Profile() {
             <Rightbar user={user} />
           </div>
         </div>
+      </div>
+      <div>
+        Hello how are you
       </div>
     </>
   );

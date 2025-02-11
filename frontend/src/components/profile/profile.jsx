@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";  // Import useNavigate for redirection
 import "./profile.css";
 
 const Profile = () => {
-  const { user: currentUser } = useContext(AuthContext); // Get the authenticated user
+  const { user: currentUser, dispatch } = useContext(AuthContext); // Get the authenticated user and dispatch method for logout
   const [user, setUser] = useState(null);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const navigate = useNavigate();  // Initialize the navigate hook for redirection
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -22,6 +24,12 @@ const Profile = () => {
 
     fetchUserData();
   }, [currentUser]); // Re-run when currentUser changes
+
+  const 
+  handleLogout = () => {
+    dispatch({ type: "LOGOUT" });  // Dispatch the logout action to clear the user session
+    navigate("/");  // Redirect to register page after logging out
+  };
 
   if (!user) {
     return <div className="profile-card">Loading user data...</div>;
@@ -65,6 +73,9 @@ const Profile = () => {
         <span className="tab">Saved Posts</span>
         <span className="tab">Settings</span>
       </div>
+      <button className="logout-button" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };
